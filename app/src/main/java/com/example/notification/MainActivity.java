@@ -30,12 +30,14 @@ public class MainActivity extends AppCompatActivity {
                 builder.setContentText("Bạn còn 5 voucher sắp hết hạn. Hãy vào kiểm tra!!");
                 builder.setShowWhen(true);
                 builder.setSmallIcon(android.R.drawable.btn_star);
+                builder.setVibrate(new long[]{1000,200,2000,200});
 
                 NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-                    NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ID, "abc", NotificationManager.IMPORTANCE_DEFAULT);
-
+                    NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ID, "Admod", NotificationManager.IMPORTANCE_DEFAULT);
+                    notificationChannel.setImportance(NotificationManager.IMPORTANCE_LOW);
+                    notificationManager.createNotificationChannel(notificationChannel);
                 }
 
                 notificationManager.notify(1,builder.build());
