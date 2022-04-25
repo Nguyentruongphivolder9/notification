@@ -5,6 +5,8 @@ import androidx.core.app.NotificationCompat;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -25,12 +27,19 @@ public class MainActivity extends AppCompatActivity {
         mBtnOpen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                Intent intent = new Intent(MainActivity.this,MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+                PendingIntent pendingIntent = PendingIntent.getActivity(MainActivity.this,0,intent,0);
+
                 NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this,CHANNEL_ID);
                 builder.setContentTitle("Thông báo");
                 builder.setContentText("Bạn còn 5 voucher sắp hết hạn. Hãy vào kiểm tra!!");
                 builder.setShowWhen(true);
                 builder.setSmallIcon(android.R.drawable.btn_star);
                 builder.setVibrate(new long[]{1000,200,2000,200});
+                builder.setContentIntent(pendingIntent);
 
                 NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
